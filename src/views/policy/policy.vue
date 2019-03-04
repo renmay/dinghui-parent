@@ -11,11 +11,15 @@
         <ul class="new-item">
           <li class="tof hactive">
             <router-link to="/policy/policyList/123">
-            <i class="mgr10"></i><span href="">sd</span>
-          </router-link></li>
+            <i class="mgr10"></i><span href="">政策</span>
+          </router-link>
+          <router-link to="/policy/policyList/345">
+            <span class="policy-all"><<全部>></span>
+          </router-link>
+          </li>
           <li class="tof hno">
             <router-link to="/policy/policyList/345">
-              <i class="mgr10"></i><span href="">sd</span>
+              <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
             </router-link></li>
         </ul>
       </div>
@@ -57,4 +61,10 @@
   .hactive{background-color:#1AA4FC;color:#fff}
   .hactive span{color:#fff}
   .hno i{border:1px solid #1AA4FC}
+  .policy-all{
+    font-size: 12px!important;
+    float: right;
+    display: block;
+    padding-right: 10px;
+  }
 </style>
