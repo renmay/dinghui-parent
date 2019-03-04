@@ -10,11 +10,11 @@
         </div>
         <ul class="new-item">
           <li class="tof hactive">
-            <router-link to="/news/newList/123">
+            <router-link to="/policy/policyList/123">
             <i class="mgr10"></i><span href="">sd</span>
           </router-link></li>
           <li class="tof hno">
-            <router-link to="/news/newList/345">
+            <router-link to="/policy/policyList/345">
               <i class="mgr10"></i><span href="">sd</span>
             </router-link></li>
         </ul>
@@ -36,7 +36,12 @@
       return {
         bannerData:[{url:'./static/img/banner1.jpg',name:'第一张'},{url:'./static/img/banner2.jpg',name:'第一张'}]
       }
-    }
+    },
+    mounted:function () {
+      this.$http.get('/api/home-page/policies').then(res => {  //这是从本地请求的数据接口，
+        console.log(res)
+      })
+    },
   }
 </script>
 

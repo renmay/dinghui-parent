@@ -20,7 +20,7 @@
            <div class="fl text-ball pr f16 innk">
              <i class="pinform"></i>通知公告
            </div>
-           <span href="" class="fr hmore mgr15 bolder"><router-link to="/newsTable">more>></router-link></span>
+           <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice">more>></router-link></span>
          </div>
          <ul class="new-item">
            <li class="tof hactive"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>
@@ -47,7 +47,7 @@
           <div class="fl text-ball pr f16 innk">
             <i class="xgzc"></i>相关政策
           </div>
-          <span href="" class="fr hmore mgr15 bolder"><router-link to="/news">more>></router-link></span>
+          <span href="" class="fr hmore mgr15 bolder"><router-link to="/policy">more>></router-link></span>
         </div>
         <ul class="new-item">
           <li class="tof hactive"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>

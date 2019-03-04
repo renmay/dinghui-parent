@@ -1,7 +1,7 @@
 import Home from  '../views/home.vue';
-import News from  '../views/NewHome.vue';
-import NewList from  '../views/newList.vue';
-import NewsTable from  '../views/newTable.vue';
+import Policy from  '../views/Policy.vue';
+import PolicyList from '../views/policyList.vue';
+import Notice from '../views/notice.vue';
 import QueryLogin from  '../views/QueryLogin.vue';
 let routes = [
   {
@@ -9,15 +9,15 @@ let routes = [
     component:Home,
   },
   {
-    path:'/news',
-    component:News,
+    path:'/policy',
+    component:Policy,
     children:[
-      {'path':'newList/:nid',component: NewList},
+      {'path':'PolicyList/:nid',component: PolicyList},
     ]
   },
   {
-    path:'/newsTable',
-    component:NewsTable,
+    path:'/notice',
+    component:Notice,
   },
   {
     path:'/queryLogin',
