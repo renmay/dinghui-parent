@@ -94,7 +94,7 @@
           }
         },
       mounted:function () {
-        this.$http.get('http://192.168.0.102:8080/test/schools/selectSchoolInfo').then(res => {  //这是从本地请求的数据接口，
+        this.$http.get('/api/schools/selectSchoolInfo').then(res => {  //这是从本地请求的数据接口，
           console.log(res)
         })
       },
