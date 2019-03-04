@@ -94,9 +94,12 @@
           }
         },
       mounted:function () {
-        this.$http.get('/api/schools/selectSchoolInfo').then(res => {  //这是从本地请求的数据接口，
-          console.log(res)
-        })
+        this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
+          console.log(res+"hhhhhh")
+        }),
+          this.$http.get('/api/schoolpublic/findAll?type=2').then(res => {  //这是从本地请求的数据接口，
+            console.log("我们六点半下班"+ res)
+          })
       },
       /*components:{
           'v-footer':Footer,
