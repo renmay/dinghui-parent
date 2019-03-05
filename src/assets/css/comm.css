@@ -1,7 +1,7 @@
 *{margin: 0;padding:0}
 a{text-decoration: none;}
 li{list-style: none}
-body{background: #F4F9FC}
+body{background: #F4F9FC; font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";}
 .container{width:1200px;margin:0 auto}
 h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .bgf{background: #fff;}

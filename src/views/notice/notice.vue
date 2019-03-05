@@ -10,13 +10,13 @@
           </div>
           <ul class="new-item">
             <li class="tof hactive">
-              <router-link to="/notice/noticeList/123">
+              <router-link to="/notice/noticeList">
                 <i class="mgr10"></i><span href="">通知公告</span>
-                <span class="notice-all"><<全部>></span>
+                <span class="notice-all">全部>></span>
               </router-link>
             </li>
             <li class="tof hno" v-for="item in noticeList">
-              <router-link to="/notice/noticeDetail/id">
+              <router-link v-bind:to="'/notice/noticeDetail/'+item.id">
                 <i class="mgr10"></i><span href="">{{item.title}}</span>
               </router-link>
             </li>
@@ -75,7 +75,6 @@
 
   .new-item {
     padding: 20px 10px;
-    font-family: STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑";
   }
 
   .new-item li {

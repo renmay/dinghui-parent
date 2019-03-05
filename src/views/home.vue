@@ -37,8 +37,6 @@
           </div>
           <ul class="content-list">
             <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
-            <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
-            <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
           </ul>
       </div>
     </div>
@@ -147,7 +145,7 @@
   .content-title>*{display: inline-block;float: left}
   .mssege i{width:60px;height:40px;background: url("/static/img/xx.png") no-repeat 10px 3px;}
   .school i{width:60px;height:40px;background: url("/static/img/xgzc2.png") no-repeat 10px 3px;}
-  .content-list{padding:0 45px}
+  .content-list{padding:0 45px;}
   .content-list li{width:100%;margin-top: 20px}
   .content-list li>*{display: inline-block;float: left}
   .content-list li>i{width:35px;height:40px;background: url("/static/img/tree.png") no-repeat 0px 3px;background-size: 27px}

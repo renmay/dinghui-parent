@@ -37,13 +37,23 @@
   export default {
     data() {
       return {
+        id:"",
         bannerData: [{url: './static/img/banner1.jpg', name: '第一张'}, {url: './static/img/banner2.jpg', name: '第一张'}]
       }
     },
+    watch:{
+      $route(){
+        this.id = this.$route.params.nid;
+        this.getNoticeDetail()
+      }
+    },
     mounted: function () {
-      this.$http.get('/api/home-page/policies').then(res => {  //这是从本地请求的数据接口，
+      var params = this.$route.params;
+      this.id = params.nid;
+      this.getNoticeDetail()
+      /*this.$http.get('/api/home-page/policies').then(res => {  //这是从本地请求的数据接口，
         console.log(res)
-      })
+      })*/
     },
     methods: {
       getNoticeList(){
@@ -52,7 +62,7 @@
         })
       },
       getNoticeDetail(){
-        this.$http.get('/api/schoolpublic/findById?id=1312412').then(res => {  //这是从本地请求的数据接口，
+        this.$http.get('/api/schoolpublic/findById?id='+this.id).then(res => {  //这是从本地请求的数据接口，
           this.noticeDetail = res.body.list
         })
       }

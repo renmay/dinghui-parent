@@ -33,12 +33,12 @@
           prop="learningPhase"
           align="center"
           label="年段">
-            <template slot-scope="scope">
-              <span v-if="scope.row.learningPhase === 1" size="small" type="primary">小学</span>
-              <span v-if="scope.row.learningPhase === 2" size="small" type="success">初中</span>
-              <span v-if="scope.row.learningPhase === 3" size="small" type="info">高中</span>
+          <template slot-scope="scope">
+            <span v-if="scope.row.learningPhase === 1" size="small" type="primary">小学</span>
+            <span v-if="scope.row.learningPhase === 2" size="small" type="success">初中</span>
+            <span v-if="scope.row.learningPhase === 3" size="small" type="info">高中</span>
           </template>
-      </el-table-column>
+        </el-table-column>
         <el-table-column
           prop="name5"
           align="center"
@@ -164,8 +164,8 @@
         }
       };*/
       return {
-        active: 0,
         applyList:[],
+        active: 0,
         editLoading: false,
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.co'}, {name: 'food2.jpeg', url: 'https://fuss10'}],
         editFormVisible: false,
@@ -267,6 +267,12 @@
         this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
           this.userList = res.body
         })
+      },
+      getApplyList(){
+        this.$http.get('/api/schoolApplicant/selapplicantproject').then(res => {  //这是从本地请求的数据接口，
+          this.applyList = res.body
+          console.log(this.applyList)
+        })
       }
     },
     components:{
@@ -279,14 +285,6 @@
     },
     activated(){
       this.getApplyList()
-    },
-    methods: {
-      getApplyList(){
-        this.$http.get('/api/schoolApplicant/selapplicantproject').then(res => {  //这是从本地请求的数据接口，
-          this.applyList = res.body
-          console.log(this.applyList)
-        })
-      }
     }
   }
 </script>

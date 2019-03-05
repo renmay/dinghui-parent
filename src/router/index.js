@@ -24,7 +24,7 @@ let routes = [
     path:'/notice',
     component:Notice,
     children:[
-      {'path':'NoticeList/:nid',component: NoticeList},
+      {'path':'NoticeList',component: NoticeList},
       {'path':'NoticeDetail/:nid',component: NoticeDetail},
     ]
   },

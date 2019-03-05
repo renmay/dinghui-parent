@@ -10,7 +10,7 @@
         </div>
         <ul class="new-item">
           <li class="tof hactive">
-            <router-link to="/policy/policyList/123">
+            <router-link to="/policy/policyList">
             <i class="mgr10"></i><span href="">相关政策</span>
           </router-link>
           <router-link to="/policy/policyList/345">
@@ -20,6 +20,11 @@
           <li class="tof hno">
             <router-link to="/policy/policyDetail/345">
               <i class="mgr10"></i><span href="">item.title</span>
+              <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
+            </router-link></li>
+          <li class="tof hno">
+            <router-link to="/policy/policyDetail/123">
+              <i class="mgr10"></i><span href="">434334</span>
               <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
             </router-link></li>
         </ul>

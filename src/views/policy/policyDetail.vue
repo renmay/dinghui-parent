@@ -39,6 +39,7 @@
       }
     },
     mounted:function () {
+      alert(333)
       this.$http.get('/api/home-page/policies').then(res => {  //这是从本地请求的数据接口，
         console.log(res)
       })
