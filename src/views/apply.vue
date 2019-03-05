@@ -255,6 +255,7 @@
         this.currentPage = currentPage;
         console.log(this.currentPage)  //点击第几页
       },
+
       handlePrevClick: function (size) {
         alert(size)
         this.pagesize = size;
