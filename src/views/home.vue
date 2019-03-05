@@ -22,9 +22,12 @@
            </div>
            <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice">more>></router-link></span>
          </div>
-         <ul class="new-item">
-           <li class="tof hactive"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>
-           <li class="tof hno"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>
+         <ul class="new-item" v-for="item in noticeList">
+           <router-link to="/notice">
+             <!--<li class="tof hactive"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>-->
+             <li class="tof hno"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>
+           </router-link>
+           <!--<li class="tof hno"><span class="mgr10"></span><a href="">{{item.untitle}}</a></li>-->
          </ul>
        </div>
       <div class="fr list-right bgf innk bdr4" style="height:357px;overflow: hidden;">
@@ -33,9 +36,9 @@
             <span>信息</span>
           </div>
           <ul class="content-list">
-            <li class="tof"><i></i><router-link to="/queryLogin">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭</router-link></li>
-            <li class="tof"><i></i><router-link to="/queryLogin">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭</router-link></li>
-            <li class="tof"><i></i><router-link to="/queryLogin">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭</router-link></li>
+            <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
+            <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
+            <li class="tof"><i></i><router-link to="/inquire">可能是申请列表</router-link></li>
           </ul>
       </div>
     </div>
@@ -49,9 +52,9 @@
           </div>
           <span href="" class="fr hmore mgr15 bolder"><router-link to="/policy">more>></router-link></span>
         </div>
-        <ul class="new-item">
-          <li class="tof hactive"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>
-          <li class="tof hno"><span class="mgr10"></span><a href="">花都小徐说看看撒ssds水电费第三方第三方十多个梵蒂冈电饭锅电饭锅电饭锅豆腐干豆腐</a></li>
+        <ul class="new-item" v-for="item in policyList">
+          <li class="tof hactive"><span class="mgr10"></span><a href="">{{item.title}}</a></li>
+          <!--<li class="tof hno"><span class="mgr10"></span><a href="">{{item.title}}</a></li>-->
         </ul>
       </div>
       <div class="fr list-right innk" style="overflow: hidden;border-top: none">
@@ -86,21 +89,35 @@
 </template>
 
 <script>
-  //import Footer from '../components/cfooter';
+  // import Footer from '../components/cfooter';
     export default {
         data(){
           return {
+            noticeList:[],
+            policyList:[],
             bannerData:[{url:'./static/img/banner1.jpg',name:'第一张'},{url:'./static/img/banner2.jpg',name:'第一张'}]
           }
         },
       mounted:function () {
-        this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
-          console.log(res+"hhhhhh")
-        }),
-          this.$http.get('/api/schoolpublic/findAll?type=2').then(res => {  //这是从本地请求的数据接口，
-            console.log("我们六点半下班"+ res)
-          })
+        this.getNoticeList()
+        this.getPolicyList()
       },
+      activated () {
+        this.getNoticeList()
+        this.getPolicyList()
+      },
+      methods: {
+          getNoticeList(){
+            this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
+              this.noticeList = res.body.list
+            })
+          },
+        getPolicyList(){
+          this.$http.get('/api/schoolpublic/findAll?type=2').then(res => {  //这是从本地请求的数据接口，
+            this.policyList = res.body.list
+          })
+        }
+      }
       /*components:{
           'v-footer':Footer,
       }*/
@@ -118,7 +135,7 @@
   .text-ball .xgzc{background: url("/static/img/xgzc.png") no-repeat 7px 9px;}
   .hmore{display: block;line-height: 40px;color:#1AA4FC;font-size: 14px}
   .hmore a{color:#1AA4FC;font-size: 14px}
-  .new-item{padding:20px 10px;}
+  .new-item{padding:0 10px;}
   .new-item li{width:100%;line-height: 30px;border-bottom: 1px dashed #ddd;}
   .new-item li span{display: inline-block;width:8px;height:8px;border-radius: 50%;}
   .new-item li a{font-size: 14px;}

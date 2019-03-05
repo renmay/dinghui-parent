@@ -5,9 +5,10 @@
           <img src="/static/img/LOGO.png">
         </div>
         <div class="new-bottom">
-          <el-button type="primary" icon="el-icon-search">首页</el-button>
-          <el-button type="primary" icon="el-icon-search">帮助</el-button>
-          <el-button type="primary" icon="el-icon-search">退出</el-button>
+          <el-button type="primary">首页</el-button>
+          <el-button type="primary" >帮助</el-button>
+          <!--<el-button type="primary" icon="el-icon-search">退出</el-button>-->
+          <el-button type="primary">退出</el-button>
         </div>
       </div>
     </div>

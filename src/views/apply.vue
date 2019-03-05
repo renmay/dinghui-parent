@@ -4,41 +4,53 @@
     <v-newHeader></v-newHeader>
     <div class="mgt15 bgf bdr4" style="height: 610px">
       <el-table
-        :data="tableData"
+        :data="applyList"
         stripe
+        align="center"
         style="width: 100%">
         <el-table-column
-          prop="oder"
-          label="序号"
-          width="50">
+          prop="id"
+          align="center"
+          label="序号">
         </el-table-column>
         <el-table-column
-          prop="name1"
+          prop="name"
+          width="300"
+          align="center"
           label="可申请项目">
         </el-table-column>
         <el-table-column
-          prop="name2"
-          label="截止时间"
-          >
+          prop="endTime"
+          align="center"
+          label="截止时间">
         </el-table-column>
         <el-table-column
-          prop="name3"
-          label="当前申请人数"
-          >
+          prop="applicantNum"
+          align="center"
+          label="当前申请人数">
         </el-table-column>
         <el-table-column
-          prop="name4"
-          label="年段"
-         >
+          prop="learningPhase"
+          align="center"
+          label="年段">
+            <template slot-scope="scope">
+              <span v-if="scope.row.learningPhase === 1" size="small" type="primary">小学</span>
+              <span v-if="scope.row.learningPhase === 2" size="small" type="success">初中</span>
+              <span v-if="scope.row.learningPhase === 3" size="small" type="info">高中</span>
+          </template>
       </el-table-column>
         <el-table-column
           prop="name5"
-          label="类型"
-          >
+          align="center"
+          label="类型">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.learningPhase === 1" size="small" type="success">入学申请</el-tag>
+          </template>
         </el-table-column>
         <el-table-column
           fixed="right"
           label="操作"
+          align="center"
           width="100">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="handleEdit(scope.$index, scope.row)">申请</el-button>
@@ -153,6 +165,7 @@
       };*/
       return {
         active: 0,
+        applyList:[],
         editLoading: false,
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.co'}, {name: 'food2.jpeg', url: 'https://fuss10'}],
         editFormVisible: false,
@@ -199,28 +212,7 @@
           }
 
         ],
-        tableData: [{
-          oder: '1',
-          name: '王小虎',
-          name1: '上海',
-          name2: '普陀区',
-          name3: '23',
-          name4: 200333
-        }, {
-          oder: '1',
-          name: '王小虎',
-          name1: '上海',
-          name2: '普陀区',
-          name3: '23151',
-          name4: 200333
-        }, {
-          oder: '1',
-          name: '王小虎',
-          name1: '上海',
-          name2: '普陀区上海市',
-          name3: '23',
-          name4: 200333
-        }]
+        tableData: []
       }
     },
     methods:{
@@ -283,6 +275,18 @@
     mounted(){
       var params = this.$route.params;
       console.log(params.nid)
+      this.getApplyList()
+    },
+    activated(){
+      this.getApplyList()
+    },
+    methods: {
+      getApplyList(){
+        this.$http.get('/api/schoolApplicant/selapplicantproject').then(res => {  //这是从本地请求的数据接口，
+          this.applyList = res.body
+          console.log(this.applyList)
+        })
+      }
     }
   }
 </script>

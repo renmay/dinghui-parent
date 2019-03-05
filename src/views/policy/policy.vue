@@ -11,14 +11,15 @@
         <ul class="new-item">
           <li class="tof hactive">
             <router-link to="/policy/policyList/123">
-            <i class="mgr10"></i><span href="">政策</span>
+            <i class="mgr10"></i><span href="">相关政策</span>
           </router-link>
           <router-link to="/policy/policyList/345">
             <span class="policy-all"><<全部>></span>
           </router-link>
           </li>
           <li class="tof hno">
-            <router-link to="/policy/policyList/345">
+            <router-link to="/policy/policyDetail/345">
+              <i class="mgr10"></i><span href="">item.title</span>
               <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
             </router-link></li>
         </ul>
@@ -44,6 +45,8 @@
     mounted:function () {
       this.$http.get('/api/home-page/policies').then(res => {  //这是从本地请求的数据接口，
         console.log(res)
+        this.policyList = res.body
+        console.log(this.policyList+'policyList')
       })
     },
   }
