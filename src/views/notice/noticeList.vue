@@ -45,8 +45,6 @@
     },
     mounted(){
       var params = this.$route.params;
-      console.log(params)
-      console.log(params.nid+"fekjosifjsiojfsjo")
       this.getNoticeList()
     },
     activated(){
@@ -68,7 +66,6 @@
       handleSizeChange: function (size) {
         alert(size)
         this.pagesize = size;
-        console.log(this.pagesize)  //每页下拉显示数据
       },
       handleCurrentChange: function(currentPage){
         this.pageIndex = currentPage;
@@ -87,7 +84,6 @@
         // rows = this.pageSize
         this.$http.get('/api/schoolpublic/findAll?type=1&pageNum='+this.pageIndex+'&rows='+this.pageSize).then(res => {  //这是从本地请求的数据接口，
           this.noticeList = res.body.list
-          console.log(this.noticeList+"分页")
         })
       },
       tableRowStyle({ row, rowIndex }) {
