@@ -1,10 +1,21 @@
 <template>
 <div>
   <div class="new-bg-title"><span class="mgl10">序号</span><span style="margin-left: 340px">标题</span></div>
-  <ul class="list-new">
-    <li class="tof"><span class="mgl10">1</span><span class="mgl30">水电费是否是sssd的发是否</span></li>
-    <li class="tof"><span class="mgl10">2</span><span class="mgl30">水电费是否是的发是否是</span></li>
-  </ul>
+  <el-table
+    :data="noticeList"
+    :row-style="tableRowStyle"
+    :header-cell-style="tableHeaderColor"
+    style="width: 100%"
+  >
+    <el-table-column
+      prop="id"
+      label="序号">
+    </el-table-column>
+    <el-table-column
+      prop="title"
+      label="标题">
+    </el-table-column>
+  </el-table>
   <el-pagination
     background
     layout="prev, pager, next"
@@ -22,7 +33,7 @@
   export default {
     data(){
       return {
-
+        policyList:[]
       }
     },
     methods:{
@@ -49,11 +60,19 @@
         this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
           this.userList = res.body
         })
-      }
+      },
+      getPolicyList(){
+        // pageNum = this.pageIndex
+        // rows = this.pageSize
+        this.$http.get('/api/schoolpublic/findAll?type=2&pageNum='+this.pageIndex+'&rows='+this.pageSize).then(res => {  //这是从本地请求的数据接口，
+          this.policyList = res.body.list
+        })
+      },
     },
     mounted(){
       var params = this.$route.params;
       console.log(params.nid)
+      this.getPolicyList()
     }
   }
 </script>

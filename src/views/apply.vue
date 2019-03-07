@@ -144,11 +144,11 @@
                 v-model="textarea">
               </el-input>
             </el-form-item>
-            <el-form-item label="出生日期">
-              <el-col :span="24">
-                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1"
-                                style="width: 100%;"></el-date-picker>
-              </el-col>
+            <el-form-item label="当前申请人数" prop="phone">
+              <el-input v-model="form.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="计划人数" prop="phone">
+              <el-input v-model="form.phone"></el-input>
             </el-form-item>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===2">
@@ -156,6 +156,74 @@
               <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="迁入日期" prop="name">
+              <div class="block">
+                <el-date-picker
+                  v-model="date"
+                  type="date"
+                  placeholder="选择日期">
+                </el-date-picker>
+              </div>
+            </el-form-item>
+            <div>
+              <el-upload
+                class="upload-demo"
+                drag
+                action="https://jsonplaceholder.typicode.com/posts/"
+                multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+            </div>
+          </div>
+          <div style="width: 55%;float: left" v-if="this.active ===3">
+            <el-form-item label="居住信息" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="材料日期" prop="name">
+              <div>
+                <el-upload
+                  class="upload-demo"
+                  drag
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                  multiple>
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+              </div>
+            </el-form-item>
+          </div>
+          <div style="width: 55%;float: left" v-if="this.active ===4">
+            <el-form-item label="务工经商信息" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="证书日期" prop="name">
+              <div class="block">
+                <el-date-picker
+                  v-model="date"
+                  type="date"
+                  placeholder="选择日期">
+                </el-date-picker>
+              </div>
+            </el-form-item>
+            <div>
+              <el-upload
+                class="upload-demo"
+                drag
+                action="https://jsonplaceholder.typicode.com/posts/"
+                multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+            </div>
+          </div>
+          <div style="width: 55%;float: left" v-if="this.active ===5">
+            <el-form-item label="优惠政策" prop="name">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="材料日期" prop="name">
               <div class="block">
                 <el-date-picker
                   v-model="date"
