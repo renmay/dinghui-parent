@@ -4,7 +4,7 @@
       <v-newHeader></v-newHeader>
 
       <div class="mgt25 ofh">
-        <div class="fl list-left bgf innk" style="height:357px;overflow: hidden;">
+        <div class="fl list-left bgf innk" style="height:357px;overflow: hidden;">=
           <div class="">
             <img src="/static/img/bg2.png"/>
           </div>

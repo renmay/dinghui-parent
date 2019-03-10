@@ -65,7 +65,7 @@
           </div>
           <ul class="school-list pdl10 bdr4 ofh bgf" style="height: 431px;overflow: hidden;">
             <li v-for="item in schoolList">
-              <a href=""><img src="/static/img/img1.jpg"/></a>
+              <!--<a href=""><img src="/static/img/img1.jpg"/></a>-->
               <a href=""><span>{{item.title}}</span></a>
             </li>
           </ul>
