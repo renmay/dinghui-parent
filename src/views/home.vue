@@ -50,11 +50,13 @@
             <div class="fl text-ball pr f16 innk">
               <i class="xgzc"></i>相关政策
             </div>
-            <span href="" class="fr hmore mgr15 bolder"><router-link to="/policy">more>></router-link></span>
+            <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice">more>></router-link></span>
           </div>
-          <ul class="new-item" v-for="item in policyList">
-            <li class="tof hactive"><span class="mgr10"></span><a href="">{{item.title}}</a></li>
-            <!--<li class="tof hno"><span class="mgr10"></span><a href="">{{item.title}}</a></li>-->
+
+          <ul class="new-item" v-for="item in noticeList">
+            <router-link to="/policy">
+              <li class="tof hno"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>
+            </router-link>
           </ul>
         </div>
         <div class="fr list-right innk" style="overflow: hidden;border-top: none">
@@ -65,7 +67,7 @@
           </div>
           <ul class="school-list pdl10 bdr4 ofh bgf" style="height: 431px;overflow: hidden;">
             <li v-for="item in schoolList">
-              <!--<a href=""><img src="/static/img/img1.jpg"/></a>-->
+              <span><img src="/static/img/img1.jpg"/></span>
               <a href=""><span>{{item.title}}</span></a>
             </li>
           </ul>

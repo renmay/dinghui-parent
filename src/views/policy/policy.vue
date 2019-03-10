@@ -4,29 +4,20 @@
       <v-newHeader></v-newHeader>
 
       <div class="mgt25 ofh">
-        <div class="fl list-left bgf innk" style="height:357px;overflow: hidden;">
+        <div class="fl list-left bgf innk" style="height:357px;overflow: hidden;">=
           <div class="">
             <img src="/static/img/bg2.png"/>
           </div>
           <ul class="new-item">
             <li class="tof hactive">
               <router-link to="/policy/policyList">
-                <i class="mgr10"></i><span href="">相关政策</span>
-              </router-link>
-              <router-link to="/policy/policyList/345">
-                <span class="policy-all"><<全部>></span>
+                <i class="mgr10"></i><span href="">通知公告</span>
+                <span class="policy-all">全部>></span>
               </router-link>
             </li>
-            <li class="tof hno">
-              <router-link to="/policy/policyDetail/345">
-                <i class="mgr10"></i><span href="">item.title</span>
-                <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
-              </router-link>
-            </li>
-            <li class="tof hno">
-              <router-link to="/policy/policyDetail/123">
-                <i class="mgr10"></i><span href="">434334</span>
-                <!--<i class="mgr10"></i><span href="">{{item.title}}</span>-->
+            <li class="tof hno" v-for="item in policyList">
+              <router-link v-bind:to="'/policy/policyDetail/'+item.id">
+                <i class="mgr10"></i><span href="">{{item.title}}</span>
               </router-link>
             </li>
           </ul>
@@ -51,10 +42,12 @@
       }
     },
     mounted: function () {
-      this.getPolicyList()
+      this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
+        this.policyList = res.body.list
+      })
     },
     methods: {
-      getPolicyList() {
+      getpolicyList(){
         this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
           this.policyList = res.body.list
         })
@@ -128,5 +121,6 @@
     float: right;
     display: block;
     padding-right: 10px;
+    cursor: pointer;
   }
 </style>

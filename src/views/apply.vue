@@ -116,7 +116,7 @@
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
             <el-form-item label="家庭住址">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="form.address"></el-input>
             </el-form-item>
             <el-form-item label="身份证">
               <el-input v-model="form.idcard"></el-input>
@@ -153,71 +153,45 @@
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===2">
             <el-form-item label="户籍信息" prop="name">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="applyInfo.户籍信息[0].describeInfo"></el-input>
             </el-form-item>
             <el-form-item label="迁入日期" prop="name">
               <div class="block">
                 <el-date-picker
-                  v-model="date"
+                  v-model="applyInfo.户籍信息[0].endScoringTime"
                   type="date"
                   placeholder="选择日期">
                 </el-date-picker>
               </div>
             </el-form-item>
-            <div>
-              <el-upload
-                class="upload-demo"
-                drag
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple>
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload>
-            </div>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===3">
             <el-form-item label="居住信息" prop="name">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="applyInfo.居住信息[0].describeInfo"></el-input>
             </el-form-item>
             <el-form-item label="材料日期" prop="name">
-              <div>
-                <el-upload
-                  class="upload-demo"
-                  drag
-                  action="https://jsonplaceholder.typicode.com/posts/"
-                  multiple>
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                  <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                </el-upload>
+              <div class="block">
+                <el-date-picker
+                  v-model="applyInfo.居住信息[0].endScoringTime"
+                  type="date"
+                  placeholder="选择日期">
+                </el-date-picker>
               </div>
             </el-form-item>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===4">
             <el-form-item label="务工经商信息" prop="name">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="applyInfo.务工信息[0].describeInfo"></el-input>
             </el-form-item>
             <el-form-item label="证书日期" prop="name">
               <div class="block">
                 <el-date-picker
-                  v-model="date"
+                  v-model="applyInfo.务工信息[0].endScoringTime"
                   type="date"
                   placeholder="选择日期">
                 </el-date-picker>
               </div>
             </el-form-item>
-            <div>
-              <el-upload
-                class="upload-demo"
-                drag
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple>
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload>
-            </div>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===5">
             <el-form-item label="优惠政策" prop="name">
@@ -232,23 +206,12 @@
                 </el-date-picker>
               </div>
             </el-form-item>
-            <div>
-              <el-upload
-                class="upload-demo"
-                drag
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple>
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-              </el-upload>
-            </div>
           </div>
         </el-form>
       </div>
 
       <div slot="footer" class="dialog-footer" align="right">
-        <el-button @click.native="editFormVisible = false">取消</el-button>
+        <el-button @click="cancel">取消</el-button>
         <el-button type="primary" v-if="this.active ===0" @click="nextStep" :loading="editLoading">下一项</el-button>
         <el-button type="primary" v-if="this.active ===1" @click="nextStep" :loading="editLoading">下一项</el-button>
         <el-button type="primary" v-if="this.active ===2" @click="nextStep" :loading="editLoading">下一项</el-button>
@@ -289,6 +252,9 @@
         applyInfo: [],
         active: 0,
         textarea: '',
+        pageIndex: 1,
+        pageSize: 10,
+        totalPage: 0,
         editLoading: false,
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.co'}, {name: 'food2.jpeg', url: 'https://fuss10'}],
         editFormVisible: false,
@@ -340,6 +306,11 @@
       this.getApplyList()
     },
     methods: {
+      cancel: function(){
+        this.active = 0
+        this.form = {}
+        this.editFormVisible = false
+      },
       nextStep: function () {
         if (this.active++ > 4) this.active = 0;
         console.log(this.active)
@@ -350,7 +321,10 @@
             if (valid) {
               this.$confirm('确认提交吗？', '提示', {}).then(() => {
                 this.editLoading = true;
-                let para = Object.assign({}, this.editForm);
+                let para = Object.assign({}, this.form);
+                this.$http.post('/api/schoolApplicant/insertApplicant',para).then(res=>{
+                  console.log(res)
+                })
               });
             }
           });
@@ -368,21 +342,20 @@
       },
       // 初始页currentPage、初始每页数据数pagesize和数据data
       handleSizeChange: function (size) {
-        alert(size)
-        this.pagesize = size;
+        this.pageIndex = size;
       },
       handleCurrentChange: function (currentPage) {
-        alert(currentPage)
-        this.currentPage = currentPage;
+        this.pageIndex = currentPage;
+        this.getApplyList()
       },
 
       handlePrevClick: function (size) {
-        alert(size)
-        this.pagesize = size;
+        this.pageIndex = size;
+        this.getApplyList()
       },
       handleNextClick: function (size) {
-        alert(size)
-        this.pagesize = size;
+        this.pageIndex = size;
+        this.getApplyList()
       },
       handleUserList() {
         this.$http.get('http://localhost:3000/userList').then(res => {  //这是从本地请求的数据接口，
@@ -390,7 +363,7 @@
         })
       },
       getApplyList() {
-        this.$http.get('/api/schoolApplicant/selapplicantproject').then(res => {  //这是从本地请求的数据接口，
+        this.$http.get('/api/schoolApplicant/selapplicantproject?pageNum='+this.pageIndex+'&rows='+this.pageSize).then(res => {  //这是从本地请求的数据接口，
           this.applyList = res.body
         })
       }

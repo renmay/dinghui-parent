@@ -16,7 +16,7 @@ let routes = [
     path:'/policy',
     component:Policy,
     children:[
-      {'path':'PolicyList/:nid',component: PolicyList},
+      {'path':'PolicyList',component: PolicyList},
       {'path':'PolicyDetail/:nid',component: PolicyDetail},
     ]
   },

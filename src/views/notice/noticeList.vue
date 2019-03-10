@@ -1,10 +1,5 @@
 <template>
 <div>
-  <!--<ul class="list-new"  v-for="item in noticeList">-->
-    <!--{{item.id}}-->
-    <!--<li class="tof"><span class="mgl10">{{item.id}}</span><span class="mgl30">{{item.content}}</span></li>-->
-  <!--</ul>-->
-
     <el-table
       :data="noticeList"
       :row-style="tableRowStyle"
