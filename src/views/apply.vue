@@ -101,17 +101,20 @@
                 <el-option label="女" value="beijing"></el-option>
               </el-select>
             </el-form-item>
+            <el-form-item label="籍贯">
+              <el-cascader
+                :options="options"
+                change-on-select
+              ></el-cascader>
+            </el-form-item>
             <el-form-item label="出生日期">
               <el-col :span="24">
                 <el-date-picker type="date" placeholder="选择日期" v-model="form.date1"
                                 style="width: 100%;"></el-date-picker>
               </el-col>
             </el-form-item>
-            <el-form-item label="籍贯">
-              <el-cascader
-                :options="options"
-                change-on-select
-              ></el-cascader>
+            <el-form-item label="身份证号">
+              <el-input v-model="form.idcard"></el-input>
             </el-form-item>
             <el-form-item label="联系电话" prop="phone">
               <el-input v-model="form.phone"></el-input>
@@ -119,23 +122,13 @@
             <el-form-item label="家庭住址">
               <el-input v-model="form.address"></el-input>
             </el-form-item>
-            <el-form-item label="身份证">
-              <el-input v-model="form.idcard"></el-input>
-            </el-form-item>
-            <el-form-item label="年龄">
-              <el-input v-model="form.age"></el-input>
-            </el-form-item>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===1">
-            <el-form-item>
-              <el-select v-model="form.describeInfo" clearable placeholder="请选择学校">
-                <el-option
-                  v-for="item in applyInfo"
-                  :key="item.id"
-                  :label="item.title"
-                  :value="item.id">
-                </el-option>
-              </el-select>
+            <el-form-item label="学校">
+              <el-cascader
+                :options="options"
+                change-on-select
+              ></el-cascader>
             </el-form-item>
             <el-form-item label="学校简介" prop="name">
               <el-input
@@ -146,7 +139,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="当前申请人数" prop="phone">
-              <el-input v-model="form.phone"></el-input>
+              <el-input v-model="form.phone" width="200"></el-input>
             </el-form-item>
             <el-form-item label="计划人数" prop="phone">
               <el-input v-model="form.phone"></el-input>
@@ -231,9 +224,9 @@
   export default {
     data() {
       var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-      var check1 = (rule, value, callback) => {
+      var name = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('阶段不能为空'));
+          return callback(new Error('不能为空'));
         }
         if (pattern.test(value)) {
           callback(new Error('不能输入特殊字符'));
@@ -254,15 +247,14 @@
         active: 0,
         textarea: '',
         pageIndex: 1,
-        pageSize: 10,
-        totalPage: 0,
+        pageSize: 8,
         editLoading: false,
         fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.co'}, {name: 'food2.jpeg', url: 'https://fuss10'}],
         editFormVisible: false,
         editFormRules: {
           name: [
-            {validator: check1, trigger: 'blur'}
-          ]
+            {validator: name, trigger: 'blur'},
+    ]
         },
         form: {
           name: '',

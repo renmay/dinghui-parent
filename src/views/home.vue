@@ -20,14 +20,12 @@
             <div class="fl text-ball pr f16 innk">
               <i class="pinform"></i>通知公告
             </div>
-            <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice">more>></router-link></span>
+            <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice/noticeList">more>></router-link></span>
           </div>
           <ul class="new-item" v-for="item in noticeList">
-            <router-link to="/notice">
-              <!--<li class="tof hactive"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>-->
+            <router-link v-bind:to="'/notice/noticeDetail/'+item.id">
               <li class="tof hno"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>
             </router-link>
-            <!--<li class="tof hno"><span class="mgr10"></span><a href="">{{item.untitle}}</a></li>-->
           </ul>
         </div>
         <div class="fr list-right bgf innk bdr4" style="height:357px;overflow: hidden;">
@@ -50,11 +48,11 @@
             <div class="fl text-ball pr f16 innk">
               <i class="xgzc"></i>相关政策
             </div>
-            <span href="" class="fr hmore mgr15 bolder"><router-link to="/notice">more>></router-link></span>
+            <span href="" class="fr hmore mgr15 bolder"><router-link to="/policy/policyList">more>></router-link></span>
           </div>
 
-          <ul class="new-item" v-for="item in noticeList">
-            <router-link to="/policy">
+          <ul class="new-item" v-for="item in policyList">
+            <router-link v-bind:to="'/policy/policyDetail/'+item.id">
               <li class="tof hno"><span class="mgr10"></span><a href="">{{ item.title }}</a></li>
             </router-link>
           </ul>
