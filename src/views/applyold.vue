@@ -97,8 +97,8 @@
             </el-form-item>
             <el-form-item label="性别">
               <el-select v-model="form.region">
-                <el-option label="男" value="1"></el-option>
-                <el-option label="女" value="0"></el-option>
+                <el-option label="男" value="shanghai"></el-option>
+                <el-option label="女" value="beijing"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="籍贯">
@@ -109,7 +109,7 @@
             </el-form-item>
             <el-form-item label="出生日期">
               <el-col :span="24">
-                <el-date-picker type="date" placeholder="选择日期" v-model="form.birthday"
+                <el-date-picker type="date" placeholder="选择日期" v-model="form.date1"
                                 style="width: 100%;"></el-date-picker>
               </el-col>
             </el-form-item>
@@ -117,7 +117,7 @@
               <el-input v-model="form.idcard"></el-input>
             </el-form-item>
             <el-form-item label="联系电话" prop="phone">
-              <el-input v-model="form.tel"></el-input>
+              <el-input v-model="form.phone"></el-input>
             </el-form-item>
             <el-form-item label="家庭住址">
               <el-input v-model="form.address"></el-input>
@@ -145,35 +145,19 @@
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
           </div>
-          <div style="width: 100%" v-if="this.active ===2">
-            <el-row>
-              <el-col :span="14">
-                <el-form-item label="户籍信息" prop="name">
-                  <el-input v-model="applyInfo.户籍信息[0].describeInfo"></el-input>
-                </el-form-item>
-                <el-form-item label="迁入日期" prop="name">
-                  <div class="block">
-                    <el-date-picker
-                      v-model="applyInfo.户籍信息[0].endScoringTime"
-                      type="date"
-                      placeholder="选择日期">
-                    </el-date-picker>
-                  </div>
-                </el-form-item>
-              </el-col>
-              <el-col :span="10">
-                <el-upload
-                  class="avatar-uploader"
-                  action="/api/schoolupload/upload"
-                  :show-file-list="false"
-                  :on-success="handleAvatarSuccess"
-                  :before-upload="beforeAvatarUpload">
-                  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-              </el-col>
-            </el-row>
-
+          <div style="width: 55%;float: left" v-if="this.active ===2">
+            <el-form-item label="户籍信息" prop="name">
+              <el-input v-model="applyInfo.户籍信息[0].describeInfo"></el-input>
+            </el-form-item>
+            <el-form-item label="迁入日期" prop="name">
+              <div class="block">
+                <el-date-picker
+                  v-model="applyInfo.户籍信息[0].endScoringTime"
+                  type="date"
+                  placeholder="选择日期">
+                </el-date-picker>
+              </div>
+            </el-form-item>
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===3">
             <el-form-item label="居住信息" prop="name">
@@ -205,12 +189,12 @@
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===5">
             <el-form-item label="优惠政策" prop="name">
-              <el-input v-model="applyInfo.优惠政策[0].describeInfo"></el-input>
+              <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="材料日期" prop="name">
               <div class="block">
                 <el-date-picker
-                  v-model="applyInfo.优惠政策[0].endScoringTime"
+                  v-model="date"
                   type="date"
                   placeholder="选择日期">
                 </el-date-picker>
@@ -249,13 +233,9 @@
         }
       };
       return {
-        imageUrl:"",
         date: '',
         applyList: [],
-        applyInfo: {"户籍信息":[{"describeInfo":"","endScoringTime":""}],
-          "居住信息":[{"describeInfo":"","endScoringTime":""}],
-          "务工信息":[{"describeInfo":"","endScoringTime":""}],
-          "优惠政策":[{"describeInfo":"","endScoringTime":""}]},
+        applyInfo: [],
         active: 0,
         textarea: '',
         pageIndex: 1,
@@ -266,7 +246,7 @@
         editFormRules: {
           name: [
             {validator: name, trigger: 'blur'},
-          ]
+    ]
         },
         form: {
           name: '',
@@ -311,21 +291,6 @@
       this.getApplyList()
     },
     methods: {
-      handleAvatarSuccess(res, file) {
-        this.imageUrl = res;
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
-
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
-      },
       cancel: function () {
         this.active = 0
         this.form = {}
@@ -333,38 +298,30 @@
       },
       nextStep: function () {
         if (this.active++ > 4) this.active = 0;
-        console.log(this.active)
       },
       editSubmit: function () {
         if (this.active === 5) {
-          /*this.$refs.editForm.validate((valid) => {
-            alert()
-            if (valid) {*/
-          this.$confirm('确认提交吗？', '提示', {}).then(() => {
-            this.editLoading = true;
-            let para = Object.assign({}, this.form);
-            console.log(para)
-            console.log(this.applyInfo)
-            para.data = [this.applyInfo.优惠政策[0],this.applyInfo.务工信息,this.applyInfo.居住信息,this.applyInfo.户籍信息];
-            this.$http.post('/api/schoolApplicant/insertApplicant', "model="+encodeURI(JSON.stringify(para))).then(res => {
-              console.log(res)
-            })
+          this.$refs.editForm.validate((valid) => {
+            if (valid) {
+              this.$confirm('确认提交吗？', '提示', {}).then(() => {
+                this.editLoading = true;
+                let para = Object.assign({}, this.form);
+                this.$http.post('/api/schoolApplicant/insertApplicant', para).then(res => {
+                  console.log(res)
+                })
+              });
+            }
           });
-          // }
-          //});
         }
-        //this.getApplyList()
+        this.getApplyList()
       },
       handleApply: function (index, id) {
         console.log(id)
         this.editFormVisible = true;
         this.getApplyList()
         // this.editForm = Object.assign({}, id);
-        this.$http.get('/api/schoolintegralrules/selIntegralbyid?id=' + id).then(res => {
-          if(res.body && JSON.stringify(res.body) != "{}"){
-            this.applyInfo = res.body
-          }
-
+        this.$http.get('/api/schoolintegralrules/selIntegralbyid?id=' + id).then(res => {  //这是从本地请求的数据接口，
+          this.applyInfo = res.body
         })
       },
       // 初始页currentPage、初始每页数据数pagesize和数据data
@@ -399,9 +356,10 @@
     components: {
       'v-newHeader':
       NewHeader
-    },
+    }
+    ,
     activated() {
-      // this.getApplyList()
+      this.getApplyList()
     }
   }
 </script>
@@ -411,7 +369,7 @@
     width: 700px;
     overflow: hidden
   }
-  .el-input{width: 67%}
+
   .el-step.is-horizontal .el-step__line {
     height: 1px
   }
@@ -465,9 +423,11 @@
     position: relative;
     overflow: hidden;
   }
+
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
   }
+
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
@@ -476,6 +436,7 @@
     line-height: 178px;
     text-align: center;
   }
+
   .avatar {
     width: 178px;
     height: 178px;
