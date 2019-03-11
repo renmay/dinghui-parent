@@ -149,8 +149,16 @@
             <el-row>
               <el-col :span="14">
                 <el-form-item label="户籍信息" prop="name">
-                  <el-input v-model="applyInfo.户籍信息[0].describeInfo"></el-input>
+                  <el-select v-model="applyInfo.户籍信息[0].subItems" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.subItemName"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
+
                 <el-form-item label="迁入日期" prop="name">
                   <div class="block">
                     <el-date-picker
@@ -173,7 +181,6 @@
                 </el-upload>
               </el-col>
             </el-row>
-
           </div>
           <div style="width: 55%;float: left" v-if="this.active ===3">
             <el-form-item label="居住信息" prop="name">
