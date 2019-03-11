@@ -42,13 +42,11 @@
       }
     },
     mounted: function () {
-      this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
-        this.policyList = res.body.list
-      })
+     this.getPolicyList()
     },
     methods: {
-      getpolicyList(){
-        this.$http.get('/api/schoolpublic/findAll?type=1').then(res => {  //这是从本地请求的数据接口，
+      getPolicyList(){
+        this.$http.get('/api/schoolpublic/findAll?type=2').then(res => {  //这是从本地请求的数据接口，
           this.policyList = res.body.list
         })
       }

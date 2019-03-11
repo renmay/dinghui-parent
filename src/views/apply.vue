@@ -89,7 +89,8 @@
           </el-steps>
         </div>
         <div class="mgt15"></div>
-        <el-form :model="form" :rules="editFormRules" ref="editForm" label-width="80px"  data-options="onClose:function(){window.location.reload(true);}">
+        <el-form :model="form" :rules="editFormRules" ref="editForm" label-width="80px"
+                 data-options="onClose:function(){window.location.reload(true);}">
           <div style="width: 55%;float: left" v-if="this.active ===0">
             <el-form-item label="姓名" prop="name">
               <el-input v-model="form.name"></el-input>
@@ -247,7 +248,7 @@
         }
       };*/
       return {
-        date:'',
+        date: '',
         applyList: [],
         applyInfo: [],
         active: 0,
@@ -306,7 +307,7 @@
       this.getApplyList()
     },
     methods: {
-      cancel: function(){
+      cancel: function () {
         this.active = 0
         this.form = {}
         this.editFormVisible = false
@@ -322,7 +323,7 @@
               this.$confirm('确认提交吗？', '提示', {}).then(() => {
                 this.editLoading = true;
                 let para = Object.assign({}, this.form);
-                this.$http.post('/api/schoolApplicant/insertApplicant',para).then(res=>{
+                this.$http.post('/api/schoolApplicant/insertApplicant', para).then(res => {
                   console.log(res)
                 })
               });
@@ -363,8 +364,8 @@
         })
       },
       getApplyList() {
-        this.$http.get('/api/schoolApplicant/selapplicantproject?pageNum='+this.pageIndex+'&rows='+this.pageSize).then(res => {  //这是从本地请求的数据接口，
-          this.applyList = res.body
+        this.$http.get('/api/schoolApplicant/selapplicantproject?pageNum=' + this.pageIndex + '&rows=' + this.pageSize).then(res => {  //这是从本地请求的数据接口，
+          this.applyList = res.body.list
         })
       }
     }
